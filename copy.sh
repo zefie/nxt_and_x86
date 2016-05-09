@@ -49,6 +49,32 @@ function clean_mountp() {
         fi
 }
 
+function copy_files() {
+	# This function copies files, sets their mode,
+	# and chowns the file to root. When checking out
+	# from git, permissions are preserved but ownership
+	# is lost, thus we want to override the ownership
+
+        ZPATH="files/$1/"
+        OUTPATH="$2"
+
+        for f in $(find $ZPATH); do
+                ZOUT=$(echo "$f" | sed "s|$ZPATH||")
+                if [ "$ZOUT" ]; then
+                        ZOUT=$OUTPATH/$ZOUT
+                        if [ -d "$f" ]; then
+                                mkdir -p $ZOUT
+                        else
+                                PERM=$(stat -c "%a" $f)
+                                cp $f $ZOUT
+                                chmod $PERM $ZOUT
+				chown root:root $ZOUT
+                        fi
+                fi
+        done;
+}
+
+
 trap ctrl_c INT
 
 function ctrl_c() {
@@ -94,7 +120,7 @@ if [ "$(df -h | grep $MOUNTP | wc -l)" -ne "1" ]; then
 fi
 
 echo "  COPY    System files"
-cp -r files/system/* $MOUNTP/
+copy_files system $MOUNTP
 
 if [ -f "$KDIR/arch/x86/boot/bzImage" ]; then
 	cd $KDIR
@@ -158,7 +184,7 @@ gzip -dc ramdisk.img.gz | cpio -id 2>/dev/null > /dev/null
 cd ..
 
 echo "  COPY    ramdisk files"
-cp files/root/* workdir
+copy_files root workdir
 
 echo "  BUILD   ramdisk > $MOUNTD/ramdisk.img"
 cd workdir
