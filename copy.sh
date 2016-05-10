@@ -4,20 +4,28 @@ if [ "$UID" -ne "0" ]; then
 	exit 1
 fi
 
-FLAVOR=android-x86
+USBDISK=NXT_AND_X86
+SIZE_M=1536
 
 if [ "$1" == "cm" ]; then
 	FLAVOR=android-x86-cm
 fi
+if [ "$1" == "aosp" ]; then
+	FLAVOR=android-x86
+fi
 
-USBDISK=NXT_AND_X86
+if [ -z "$FLAVOR" ]; then
+        echo "  ERROR   Please choose a flavor (cm or aosp)"
+	exit 1
+fi
+
+
 AND_BUILD=../$FLAVOR/out/target/product/x86
 KDIR=../kernel_nextbook
-SIZE_M=1536
 
 
 USE_SQUASH=0
-if [ "$1" == "squash" ] || [ "$2" == "squash" ]; then
+if [ "$2" == "squash" ]; then
         USE_SQUASH=1;
 fi
 
