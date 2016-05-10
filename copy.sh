@@ -175,7 +175,7 @@ cp "$AND_BUILD/initrd.img" "$MOUNTD/initrd.img"
 clean_workdir
 mkdir workdir
 
-echo "  COPY    ramdisk.img > workdir/initrd.img.gz"
+echo "  COPY    ramdisk.img > workdir/ramdisk.img.gz"
 cp "$AND_BUILD/ramdisk.img" "workdir/ramdisk.img.gz"
 
 echo "  EXT     ramdisk > workdir"

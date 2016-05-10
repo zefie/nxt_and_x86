@@ -1,4 +1,5 @@
 #!/system/bin/sh
+
 # Enable Headphones
 alsa_amixer -c0 sset 'DAC MIXL INF1' on
 alsa_amixer -c0 sset 'DAC MIXR INF1' on
