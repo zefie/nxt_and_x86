@@ -41,6 +41,7 @@ function init_hal_audio()
 		        modprobe snd-intel-sst-acpi
 		        source /system/etc/alsa/alsa_cr.sh
 			source /system/etc/alsa/alsa_cr_spk.sh
+			source /system/etc/alsa/alsa_cr_intmic_on.sh
 			;;
 		*)
 			;;
