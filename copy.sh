@@ -4,14 +4,20 @@ if [ "$UID" -ne "0" ]; then
 	exit 1
 fi
 
+FLAVOR=android-x86
+
+if [ "$1" == "cm" ]; then
+	FLAVOR=android-x86-cm
+fi
+
 USBDISK=NXT_AND_X86
-AND_BUILD=../android-x86/out/target/product/x86
+AND_BUILD=../$FLAVOR/out/target/product/x86
 KDIR=../kernel_nextbook
 SIZE_M=1536
 
 
 USE_SQUASH=0
-if [ "$1" == "squash" ]; then
+if [ "$1" == "squash" ] || [ "$2" == "squash" ]; then
         USE_SQUASH=1;
 fi
 
@@ -42,7 +48,8 @@ function patch_buildprop() {
 	sed -i '/ro.product.brand/d' $MOUNTP/build.prop
 	sed -i '/ro.product.board/d' $MOUNTP/build.prop
 	sed -i '/ro.product.manufacturer/d' $MOUNTP/build.prop
-	sed -i '/ro.product.platform/d' $MOUNTP/build.prop
+	sed -i '/ro.product.manufacturer/d' $MOUNTP/build.prop
+	sed -i '/ro.sf.lcd_density/d' $MOUNTP/build.prop
 	echo 'ro.product.model=NXW101QC232' >> $MOUNTP/build.prop
 	echo 'ro.product.brand=NextBook' >> $MOUNTP/build.prop
 	echo 'ro.product.board=baytrail' >> $MOUNTP/build.prop
@@ -97,7 +104,7 @@ trap ctrl_c INT
 function ctrl_c() {
 	echo -ne '\r'
         echo "  WARN    CTRL-C Pressed... cancelling and unmounting"
-        echo "  UMOUNT  $MOUNTD/system.img"
+        echo "  UMOUNT  workdir/system.img"
         umount $MOUNTP 2>/dev/null
 	clean_mountp
 	clean_workdir
@@ -105,7 +112,7 @@ function ctrl_c() {
 }
 
 if [ ! -f "$AND_BUILD/system.img" ]; then
-	echo "  ERROR   Could not find system.img in Android build dir"
+	echo "  ERROR   Could not find system.img in $FLAVOR build dir"
 	clean_mountp
 	exit 1;
 fi
