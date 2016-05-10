@@ -35,6 +35,23 @@ if [ ! -d "$MOUNTP" ]; then
 	mkdir $MOUNTP;
 fi
 
+function patch_buildprop() {
+	echo "  PATCH   build.prop"
+	sed -i '/hal.sensors.iio.accel.matrix/d' $MOUNTP/build.prop
+	sed -i '/ro.product.model/d' $MOUNTP/build.prop
+	sed -i '/ro.product.brand/d' $MOUNTP/build.prop
+	sed -i '/ro.product.board/d' $MOUNTP/build.prop
+	sed -i '/ro.product.manufacturer/d' $MOUNTP/build.prop
+	sed -i '/ro.product.platform/d' $MOUNTP/build.prop
+	echo 'ro.product.model=NXW101QC232' >> $MOUNTP/build.prop
+	echo 'ro.product.brand=NextBook' >> $MOUNTP/build.prop
+	echo 'ro.product.board=baytrail' >> $MOUNTP/build.prop
+	echo 'ro.product.manufacturer=Yifang' >> $MOUNTP/build.prop
+	echo 'ro.board.platform=baytrail' >> $MOUNTP/build.prop
+	echo 'hal.sensors.iio.accel.matrix=0,1,0,1,0,0,0,0,-1' >> $MOUNTP/build.prop
+	echo 'ro.sf.lcd_density=150' >> $MOUNTP/build.prop
+}
+
 function clean_workdir() {
 	echo "  CLEAN   workdir"
 	rm -rf workdir
@@ -131,8 +148,7 @@ else
 	exit 1
 fi
 
-echo "  PATCH   build.prop"
-echo 'hal.sensors.iio.accel.matrix=0,1,0,1,0,0,0,0,-1' >> $MOUNTP/build.prop
+patch_buildprop
 
 echo "  UMOUNT  workdir/system.img"
 umount $MOUNTP/
