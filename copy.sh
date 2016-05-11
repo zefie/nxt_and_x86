@@ -270,6 +270,16 @@ cd workdir
 gzip -dc ramdisk.img.gz | cpio -id 2>/dev/null > /dev/null
 cd ..
 
+OURMACH=$(cat $MOUNTD/boot/grub/grub.cfg | grep androidboot.hardware | head -n1 | sed -n 's/.*\(androidboot.hardware\=\(.*\)\)/\1/p' | cut -d' ' -f1 | cut -d'=' -f2)
+PBMACH=$(find workdir |sed 's#.*/##' | grep fstab | cut -d'.' -f2-);
+if [ "$PBMACH" != "$OURMACH" ]; then
+        echo "  WARN    Found machine difference (image has \"$PBMACH\", we use \"$OURMACH\") ... fixing"
+        for f in $(find workdir | grep $PBMACH); do
+                NEWFILE=$(echo $f | sed "s/$PBMACH/$OURMACH/");
+                mv $f $NEWFILE
+        done
+fi
+
 echo "  COPY    ramdisk files"
 copy_files $ANDVERS root workdir
 
