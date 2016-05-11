@@ -23,12 +23,18 @@ fi
 
 
 if [ "$2" == "prebuilt" ]; then
-	if [ ! -z "$3" ] && [ "$3" != "squash" ]; then
+	if [ ! -z "$3" ] && [ "$3" != "squash" ] && [ "$3" != "list" ]; then
 		FLAVOR=$3
 		AND_BUILD=./prebuilt/$FLAVOR
 	else
 		if [ "$3" == "squash" ]; then
 			echo "  ERROR   Prebuilt image folder cannot be named \"squash\" :)"
+		elif [ "$3" == "list" ]; then
+			echo "  INFO    Available images:"
+			for f in $(find prebuilt/ -type d |sed 's#.*/##'); do
+				echo "          $f"
+			done
+			exit 0;
 		else
 		        echo "  ERROR   Please choose a prebuilt image (subfolder)"
 		fi
