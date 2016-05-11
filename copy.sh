@@ -275,7 +275,7 @@ copy_files $ANDVERS root workdir
 
 echo "  BUILD   ramdisk > $MOUNTD/ramdisk.img"
 cd workdir
-find . -name ramdisk.img.gz -prune -o -print | cpio --create --format='newc' 2>/dev/null | gzip -9c > $MOUNTD/ramdisk.img
+find . -name ramdisk.img.gz -prune -o -print | cpio --create --format='newc' 2>/dev/null | gzip -c > $MOUNTD/ramdisk.img
 cd ..
 
 clean_workdir
