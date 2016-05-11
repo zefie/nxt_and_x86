@@ -1,0 +1,1 @@
+../../../../6/system/etc/alsa/alsa_cr_spk.sh

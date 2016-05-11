@@ -1,0 +1,1 @@
+../../../../6/system/etc/axp/start_apxd.sh

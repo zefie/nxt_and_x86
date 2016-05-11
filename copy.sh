@@ -9,9 +9,11 @@ SIZE_M=1536
 
 if [ "$1" == "cm" ]; then
 	FLAVOR=android-x86-cm
+	PRODUCT=android_x86
 fi
 if [ "$1" == "aosp" ]; then
 	FLAVOR=android-x86
+	PRODUCT=x86
 fi
 
 if [ -z "$FLAVOR" ]; then
@@ -20,12 +22,18 @@ if [ -z "$FLAVOR" ]; then
 fi
 
 
-AND_BUILD=../$FLAVOR/out/target/product/x86
+if [ "$2" == "prebuilt" ]; then
+	FLAVOR=prebuilt
+	AND_BUILD=./$FLAVOR
+else
+	AND_BUILD=../$FLAVOR/out/target/product/$PRODUCT
+fi
+
 KDIR=../kernel_nextbook
 
 
 USE_SQUASH=0
-if [ "$2" == "squash" ]; then
+if [ "$2" == "squash" ] || [ "$3" == "squash" ]; then
         USE_SQUASH=1;
 fi
 
@@ -49,6 +57,38 @@ if [ ! -d "$MOUNTP" ]; then
 	mkdir $MOUNTP;
 fi
 
+function z_umount() {
+        echo "  UMOUNT  $2"
+	umount $1 2>/dev/null
+	while [ "$(check_mounted $1)" -gt "0" ]; do
+		echo "  WARN    Failed to unmount $2 .. retrying in 3 seconds"
+		sleep 3
+		umount $1
+	done;
+	echo "  SUCCESS Unmounted $2"
+}
+
+function detect_android_version() {
+	# TODO: Make this better
+	ZANDVERS=$(cat $MOUNTP/build.prop | grep ro.build.version.release | cut -d'=' -f2 | cut -d'.' -f1);
+	re='^[0-9]+$'
+	if ! [[ $ZANDVERS =~ $re ]] ; then
+		# For some reason we didn't get a number.
+		return 0;
+	else
+		return $ZANDVERS
+	fi
+}
+
+function check_mounted() {
+	if [ "$(df | grep $1 | wc -l)" -gt "0" ]; then
+		echo 1;
+	else
+		echo 0;
+	fi
+}
+
+
 function patch_buildprop() {
 	echo "  PATCH   build.prop"
 	sed -i '/hal.sensors.iio.accel.matrix/d' $MOUNTP/build.prop
@@ -56,15 +96,19 @@ function patch_buildprop() {
 	sed -i '/ro.product.brand/d' $MOUNTP/build.prop
 	sed -i '/ro.product.board/d' $MOUNTP/build.prop
 	sed -i '/ro.product.manufacturer/d' $MOUNTP/build.prop
-	sed -i '/ro.product.manufacturer/d' $MOUNTP/build.prop
 	sed -i '/ro.sf.lcd_density/d' $MOUNTP/build.prop
+	sed -i '/ro.radio.noril/d' $MOUNTP/build.prop
 	echo 'ro.product.model=NXW101QC232' >> $MOUNTP/build.prop
 	echo 'ro.product.brand=NextBook' >> $MOUNTP/build.prop
 	echo 'ro.product.board=baytrail' >> $MOUNTP/build.prop
 	echo 'ro.product.manufacturer=Yifang' >> $MOUNTP/build.prop
 	echo 'ro.board.platform=baytrail' >> $MOUNTP/build.prop
+	echo 'ro.radio.noril=yes' >> $MOUNTP/build.prop
 	echo 'hal.sensors.iio.accel.matrix=0,1,0,1,0,0,0,0,-1' >> $MOUNTP/build.prop
-	echo 'ro.sf.lcd_density=150' >> $MOUNTP/build.prop
+	echo 'ro.sf.lcd_density=160' >> $MOUNTP/build.prop
+	if [ "$1" == "cm" ]; then
+		echo 'persist.sys.lcd_density=160' >> $MOUNTP/build.prop
+	fi
 }
 
 function clean_workdir() {
@@ -87,8 +131,8 @@ function copy_files() {
 	# from git, permissions are preserved but ownership
 	# is lost, thus we want to override the ownership
 
-        ZPATH="files/$1/"
-        OUTPATH="$2"
+        ZPATH="files/$1/$2/"
+        OUTPATH="$3"
 
         for f in $(find $ZPATH); do
                 ZOUT=$(echo "$f" | sed "s|$ZPATH||")
@@ -97,7 +141,7 @@ function copy_files() {
                         if [ -d "$f" ]; then
                                 mkdir -p $ZOUT
                         else
-                                PERM=$(stat -c "%a" $f)
+                                PERM=$(stat -Lc "%a" $f)
                                 cp $f $ZOUT
                                 chmod $PERM $ZOUT
 				chown root:root $ZOUT
@@ -112,8 +156,7 @@ trap ctrl_c INT
 function ctrl_c() {
 	echo -ne '\r'
         echo "  WARN    CTRL-C Pressed... cancelling and unmounting"
-        echo "  UMOUNT  workdir/system.img"
-        umount $MOUNTP 2>/dev/null
+        z_umount $MOUNTP "workdir/system.img"
 	clean_mountp
 	clean_workdir
         exit 130
@@ -135,7 +178,7 @@ CURSIZE=$(du -m workdir/system.img | cut -f1)
 SIZEDIFF=$(expr $SIZE_M - $CURSIZE)
 if [ "$SIZEDIFF" -gt "0" ]; then
 	echo "  GROW    workdir/system.img by ${SIZEDIFF}M"
-	dd if=/dev/zero bs=1M count=SIZEDIFF 2>/dev/null >> workdir/system.img
+	dd if=/dev/zero bs=1M count=$SIZEDIFF 2>/dev/null >> workdir/system.img
 	fsck.ext4 -fp workdir/system.img 2>/dev/null > /dev/null
 	resize2fs workdir/system.img 2>/dev/null > /dev/null
 	fsck.ext4 -fp workdir/system.img 2>/dev/null > /dev/null
@@ -143,6 +186,20 @@ fi
 
 echo "  MOUNT   workdir/system.img"
 mount -o loop -t ext4 workdir/system.img $MOUNTP/
+
+detect_android_version
+ANDVERS=$?
+
+if [ "$ANDVERS" -gt "0" ]; then
+	echo "  DETECT  Found Android v${ANDVERS}"
+else
+	echo "  ERROR   Could not detect Android version"
+        z_umount $MOUNTP "workdir/system.img"
+	clean_mountp
+	clean_workdir
+	exit 1;
+fi
+
 
 if [ "$(df -h | grep $MOUNTP | wc -l)" -ne "1" ]; then
 	echo "  ERROR   Failed to mount system.img"
@@ -152,7 +209,7 @@ if [ "$(df -h | grep $MOUNTP | wc -l)" -ne "1" ]; then
 fi
 
 echo "  COPY    System files"
-copy_files system $MOUNTP
+copy_files $ANDVERS system $MOUNTP
 
 if [ -f "$KDIR/arch/x86/boot/bzImage" ]; then
 	cd $KDIR
@@ -163,10 +220,9 @@ else
 	exit 1
 fi
 
-patch_buildprop
+patch_buildprop $1
 
-echo "  UMOUNT  workdir/system.img"
-umount $MOUNTP/
+z_umount $MOUNTP "workdir/system.img"
 
 if [ "$USE_SQUASH" -eq "1" ]; then
 	if [ -f "$MOUNTD/system.img" ]; then
@@ -198,7 +254,7 @@ else
 fi
 
 echo "  COPY    install.img > $MOUNTD/install.img"
-cp "$AND_BUILD/install.img" "$MOUNTD/install.img"
+cp "files/generic/install.img" "$MOUNTD/install.img"
 
 echo "  COPY    initrd.img > $MOUNTD/initrd.img"
 cp "$AND_BUILD/initrd.img" "$MOUNTD/initrd.img"
@@ -215,7 +271,7 @@ gzip -dc ramdisk.img.gz | cpio -id 2>/dev/null > /dev/null
 cd ..
 
 echo "  COPY    ramdisk files"
-copy_files root workdir
+copy_files $ANDVERS root workdir
 
 echo "  BUILD   ramdisk > $MOUNTD/ramdisk.img"
 cd workdir

@@ -1,0 +1,1 @@
+../../../../6/system/etc/axp/axpd.sh

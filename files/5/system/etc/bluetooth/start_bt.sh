@@ -1,0 +1,1 @@
+../../../../6/system/etc/bluetooth/start_bt.sh

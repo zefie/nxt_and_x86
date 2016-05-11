@@ -1,4 +1,0 @@
-none			/cache		tmpfs	nosuid,nodev,noatime	defaults
-
-/devices/*/usb*/*	auto		auto	defaults		voldmanaged=usb:auto
-/devices/platform/80860F14:02/mmc_host/mmc2/*	auto	auto	defaults	voldmanaged=sdcard1:auto
