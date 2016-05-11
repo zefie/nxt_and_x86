@@ -23,8 +23,17 @@ fi
 
 
 if [ "$2" == "prebuilt" ]; then
-	FLAVOR=prebuilt
-	AND_BUILD=./$FLAVOR
+	if [ ! -z "$3" ] && [ "$3" != "squash" ]; then
+		FLAVOR=$3
+		AND_BUILD=./prebuilt/$FLAVOR
+	else
+		if [ "$3" == "squash" ]; then
+			echo "  ERROR   Prebuilt image folder cannot be named \"squash\" :)"
+		else
+		        echo "  ERROR   Please choose a prebuilt image (subfolder)"
+		fi
+		exit 1;
+	fi
 else
 	AND_BUILD=../$FLAVOR/out/target/product/$PRODUCT
 fi
@@ -33,7 +42,7 @@ KDIR=../kernel_nextbook
 
 
 USE_SQUASH=0
-if [ "$2" == "squash" ] || [ "$3" == "squash" ]; then
+if [ "$2" == "squash" ] || [ "$3" == "squash" ] || [ "$4" == "squash" ]; then
         USE_SQUASH=1;
 fi
 
@@ -107,9 +116,9 @@ function patch_buildprop() {
 	echo 'ro.board.platform=baytrail' >> $MOUNTP/build.prop
 	echo 'ro.radio.noril=yes' >> $MOUNTP/build.prop
 	echo 'hal.sensors.iio.accel.matrix=0,1,0,1,0,0,0,0,-1' >> $MOUNTP/build.prop
-	echo 'ro.sf.lcd_density=160' >> $MOUNTP/build.prop
+	echo 'ro.sf.lcd_density=180' >> $MOUNTP/build.prop
 	if [ "$1" == "cm" ]; then
-		echo 'persist.sys.lcd_density=160' >> $MOUNTP/build.prop
+		echo 'persist.sys.lcd_density=180' >> $MOUNTP/build.prop
 	fi
 }
 
