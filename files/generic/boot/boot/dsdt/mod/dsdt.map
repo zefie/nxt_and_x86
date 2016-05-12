@@ -1,0 +1,441 @@
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler version 20141107-64 [Dec 17 2014]
+Copyright (c) 2000 - 2014 Intel Corporation
+
+Compilation of "dsdt.dsl" - Mon May  9 04:15:37 2016
+
+
+Resource Descriptor Connectivity Map
+------------------------------------
+
+
+GPIO Controller:  INT0002   \_SB.GPED                     // Virtual GPIO Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+0002  GpioInt  -Interrupt-  ActiveHigh   INT0002   \_SB_.GPED                    // Virtual GPIO Controller
+
+
+GPIO Controller:  INT33FC   \_SB.GPO0                     // Intel Baytrail GPIO Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+0000  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0000  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0000  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0001  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0001  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0001  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0002  GpioIo   OutputOnly                -Field-   \_SB_.GPO0.CCU2               // **** No references in table
+0003  GpioIo   OutputOnly                -Field-   \_SB_.GPO0.CCU3               // **** No references in table
+0026  GpioIo   InputOnly                80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioInt  -Interrupt-  ActiveBoth  80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioIo   InputOnly                80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioInt  -Interrupt-  ActiveBoth  80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioIo   InputOnly                80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioInt  -Interrupt-  ActiveBoth  80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioIo   InputOnly                80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0026  GpioInt  -Interrupt-  ActiveBoth  80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0028  GpioIo   OutputOnly               80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0028  GpioIo   OutputOnly               80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0029  GpioIo   OutputOnly               80860F14   \_SB_.SDHD                    // Intel Baytrail SDIO/MMC Host Controller
+0029  GpioIo   OutputOnly               80860F14   \_SB_.SDHC                    // Intel Baytrail SDIO/MMC Host Controller
+0041  GpioInt  -Interrupt-  ActiveHigh  10EC5640   \_SB_.I2C2.RTEK               // Realtek I2S Audio Codec
+005F  GpioIo   OutputOnly               SPBP0001   \_SB_.I2C3.SAR1             
+0064  GpioIo   OutputOnly                -Field-   \_SB_.GPO0.WWD3               // References: \_SB_.PCI0.XHC1.RHUB.HS03.WWPR._STA [-No HID-] \_SB_.PCI0.XHC1.RHUB.HS03.WWPR._ON_ [-No HID-] \_SB_.PCI0.XHC1.RHUB.HS03.WWPR._OFF [-No HID-]
+
+
+GPIO Controller:  INT33FC   \_SB.GPO1                     // Intel Baytrail GPIO Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+000F  GpioIo   OutputOnly                -Field-   \_SB_.GPO1.BST5               // **** No references in table
+0011  GpioIo   OutputOnly               OVTI2680   \_SB_.I2C3.CAM3             
+0011  GpioIo   OutputOnly               HIMX2056   \_SB_.I2C3.CAM1             
+0012  GpioIo   OutputOnly               OVTI2680   \_SB_.I2C2.CAM4             
+0012  GpioIo   OutputOnly               HIMX2056   \_SB_.I2C2.CAM2             
+0015  GpioIo   OutputOnly               OVTI2680   \_SB_.I2C3.CAM3             
+0015  GpioIo   OutputOnly               HIMX2056   \_SB_.I2C3.CAM1             
+0016  GpioIo   OutputOnly               OVTI2680   \_SB_.I2C2.CAM4             
+0016  GpioIo   OutputOnly               HIMX2056   \_SB_.I2C2.CAM2             
+0018  GpioIo   OutputOnly               OBDA8723   \_SB_.URT1.BTH1             
+0018  GpioIo   OutputOnly               OBDA8723   \_SB_.URT1.BTH1             
+0018  GpioIo   OutputOnly                BCM2E3A   \_SB_.URT1.BTH0             
+0019  GpioIo   OutputOnly               OBDA8723   \_SB_.URT1.BTH1             
+0019  GpioIo   OutputOnly               OBDA8723   \_SB_.URT1.BTH1             
+0019  GpioIo   OutputOnly                BCM2E3A   \_SB_.URT1.BTH0             
+001A  GpioIo   OutputOnly               FTSC1000   \_SB_.I2C4.TCS1             
+001A  GpioIo   OutputOnly                -Field-   \_SB_.GPO1.TCD3               // References: \_SB_.I2C4.TCS1._PS0 [-No HID-] \_SB_.I2C4.TCS1._PS0 [-No HID-]
+
+
+GPIO Controller:  INT33FC   \_SB.GPO2                     // Intel Baytrail GPIO Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+0001  GpioIo   OutputOnly               SMSC3750   \_SB_.I2C1.SMUX               // SMSC 3750 USB MUX
+0001  GpioIo   OutputOnly                -Field-   \_SB_.GPO2.MOTG               // **** No references in table
+0002  GpioInt  -Interrupt-  ActiveHigh  TBQ24296   \_SB_.I2C1.TBCG               // Charger
+0002  GpioInt  -Interrupt-  ActiveHigh   SMB0349   \_SB_.I2C1.SMCG               // Charger
+0002  GpioInt  -Interrupt-  ActiveLow    INT33FC   \_SB_.GPO2                    // Intel Baytrail GPIO Controller
+0004  GpioInt  -Interrupt-  ActiveHigh  AMCR0F28   \_SB_.AMCR                    // Intel Audio Machine Driver
+0004  GpioInt  -Interrupt-  ActiveHigh  TIMC0F28   \_SB_.TIMC                  
+0006  GpioInt  -Interrupt-  ActiveBoth   JSA1212   \_SB_.I2C3.SALS             
+000A  GpioInt  -Interrupt-  ActiveBoth   INT33FC   \_SB_.GPO2                    // Intel Baytrail GPIO Controller
+000F  GpioInt  -Interrupt-  ActiveHigh   RTL8723   \_SB_.SDHB.RTLW               // Realtek Wireless Controller
+0010  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0010  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0010  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0011  GpioInt  -Interrupt-  ActiveHigh  OBDA8723   \_SB_.URT1.BTH1             
+0011  GpioInt  -Interrupt-  ActiveHigh  OBDA8723   \_SB_.URT1.BTH1             
+0012  GpioInt  -Interrupt-  ActiveHigh  MAX17047   \_SB_.I2C1.SMFG               // Fuel Gauge Controller
+0012  GpioIo   InputOnly                 -Field-   \_SB_.GPO2.USID               // **** No references in table
+0012  GpioInt  -Interrupt-  ActiveBoth   INT33FC   \_SB_.GPO2                    // Intel Baytrail GPIO Controller
+0012  GpioInt  -Interrupt-  ActiveLow    INT33FC   \_SB_.GPO2                    // Intel Baytrail GPIO Controller
+0013  GpioInt  -Interrupt-  ActiveBoth  SPBP0001   \_SB_.I2C3.SAR1             
+0014  GpioIo   OutputOnly                RTL8723   \_SB_.SDHB.RTLW               // Realtek Wireless Controller
+0014  GpioIo   OutputOnly               -No HID-   \_SB_.SDHB.WLAN             
+0014  GpioIo   OutputOnly                -Field-   \_SB_.GPO2.WFD3               // References: \_SB_.SDHB._PS0 [-No HID-] \_SB_.SDHB.RTLW._PS3 [-No HID-] \_SB_.SDHB.RTLW._PS0 [-No HID-]
+0015  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0015  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0015  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0016  GpioIo   OutputOnly                BCM4752   \_SB_.URT2.GPS0             
+001B  GpioInt  -Interrupt-  ActiveHigh  AMCR0F28   \_SB_.AMCR                    // Intel Audio Machine Driver
+001B  GpioInt  -Interrupt-  ActiveHigh  TIMC0F28   \_SB_.TIMC                  
+
+
+GPIO Controller:  INT33F4   \_SB.I2C5.PMI1                // XPOWER PMIC Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+000B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.TCON          // References: \_SB_.I2C4.TCS1._PS3 [-No HID-] \_SB_.I2C4.TCS1._PS0 [-No HID-]
+0011  GpioInt  -Interrupt-  ActiveLow    INT33FE   \_SB_.I2C5.BMDR               // XPOWER Battery Device
+0020  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP0          // **** No references in table
+0021  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX00          // **** No references in table
+0022  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX01          // **** No references in table
+0023  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP1          // **** No references in table
+0024  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX10          // **** No references in table
+0025  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX11          // **** No references in table
+0026  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP2          // References: \_TZ_.TZ00._TMP [-No HID-]
+0027  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX20          // **** No references in table
+0028  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX21          // **** No references in table
+0029  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP3          // **** No references in table
+002A  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX30          // **** No references in table
+002B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX31          // **** No references in table
+002C  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP4          // **** No references in table
+002D  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX40          // **** No references in table
+002E  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX41          // **** No references in table
+002F  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GMP5          // **** No references in table
+0030  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX50          // **** No references in table
+0031  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GX51          // **** No references in table
+0032  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN0          // **** No references in table
+0033  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN1          // **** No references in table
+0034  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN2          // **** No references in table
+0035  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN3          // **** No references in table
+0036  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN4          // **** No references in table
+0037  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GEN5          // **** No references in table
+0040  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.G28X          // References: \_SB_.P28P._STA [-No HID-] \_SB_.P28P._ON_ [-No HID-] \_SB_.P28P._OFF [-No HID-]
+0045  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GD3X          // **** No references in table
+0048  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.G18X          // References: \_SB_.P18P._STA [-No HID-] \_SB_.P18P._ON_ [-No HID-] \_SB_.P18P._OFF [-No HID-]
+0053  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI1.GSDX          // References: \_SB_.SDHD._PS3 [-No HID-] \_SB_.SDHD._PS0 [-No HID-]
+005F  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+
+
+GPIO Controller:  INT33F5   \_SB.I2C5.PMI2                // TI PMIC Controller
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+000B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.TCON          // **** No references in table
+0011  GpioInt  -Interrupt-  ActiveLow    INT33FE   \_SB_.I2C5.TIDR               // XPOWER Battery Device
+0020  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP0          // **** No references in table
+0021  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX00          // **** No references in table
+0022  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX01          // **** No references in table
+0023  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP1          // **** No references in table
+0024  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX10          // **** No references in table
+0025  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX11          // **** No references in table
+0026  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP2          // References: \_TZ_.TZ00._TMP [-No HID-]
+0027  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX20          // **** No references in table
+0028  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX21          // **** No references in table
+0029  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP3          // **** No references in table
+002A  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX30          // **** No references in table
+002B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX31          // **** No references in table
+002C  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP4          // **** No references in table
+002D  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX40          // **** No references in table
+002E  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX41          // **** No references in table
+002F  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GMP5          // **** No references in table
+0030  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX50          // **** No references in table
+0031  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GX51          // **** No references in table
+0032  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN0          // **** No references in table
+0033  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN1          // **** No references in table
+0034  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN2          // **** No references in table
+0035  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN3          // **** No references in table
+0036  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN4          // **** No references in table
+0037  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GEN5          // **** No references in table
+0045  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.GSDX          // References: \_SB_.SDHC._PS3 [-No HID-] \_SB_.SDHC._PS0 [-No HID-]
+0047  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.G28X          // References: \_SB_.P28T._STA [-No HID-] \_SB_.P28T._ON_ [-No HID-] \_SB_.P28T._OFF [-No HID-]
+0048  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.G18X          // References: \_SB_.P18T._STA [-No HID-] \_SB_.P18T._ON_ [-No HID-] \_SB_.P18T._OFF [-No HID-]
+0049  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMI2.G18U          // References: \_SB_.P1XT._STA [-No HID-] \_SB_.P1XT._ON_ [-No HID-] \_SB_.P1XT._OFF [-No HID-]
+005F  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+
+
+GPIO Controller:  INT33FD   \_SB.I2C5.PMIC                // Intel Baytrail Power Management IC
+
+Pin   Type     Direction    Polarity    Dest _HID  Destination
+0007  GpioInt  -Interrupt-  ActiveBoth   INTCFD9   \_SB_.TBAD                    // Intel Baytrail SOC GPIO Controller
+0020  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP0          // **** No references in table
+0021  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX00          // **** No references in table
+0022  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX01          // **** No references in table
+0023  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP1          // **** No references in table
+0024  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX10          // **** No references in table
+0025  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX11          // **** No references in table
+0026  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP2          // References: \_TZ_.TZ00._TMP [-No HID-]
+0027  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX20          // **** No references in table
+0028  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX21          // **** No references in table
+0029  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP3          // **** No references in table
+002A  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX30          // **** No references in table
+002B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX31          // **** No references in table
+002C  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP4          // **** No references in table
+002D  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX40          // **** No references in table
+002E  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX41          // **** No references in table
+002F  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GMP5          // **** No references in table
+0030  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX50          // **** No references in table
+0031  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GX51          // **** No references in table
+0032  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN0          // **** No references in table
+0033  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN1          // **** No references in table
+0034  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN2          // **** No references in table
+0035  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN3          // **** No references in table
+0036  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN4          // **** No references in table
+0037  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEN5          // **** No references in table
+0040  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GSYS          // **** No references in table
+0041  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GYSX          // **** No references in table
+0042  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GYSU          // **** No references in table
+0043  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GYSS          // **** No references in table
+0044  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G50S          // **** No references in table
+0045  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GOST          // **** No references in table
+0046  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GBUS          // **** No references in table
+0047  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GDMI          // **** No references in table
+0048  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G28S          // **** No references in table
+0049  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G28X          // References: \_SB_.P28X._STA [-No HID-] \_SB_.P28X._ON_ [-No HID-] \_SB_.P28X._OFF [-No HID-]
+004A  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G33A          // **** No references in table
+004B  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G33S          // **** No references in table
+004C  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G33U          // **** No references in table
+004D  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G33I          // **** No references in table
+004E  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G18A          // **** No references in table
+004F  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.GEFQ          // **** No references in table
+0050  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G12A          // **** No references in table
+0051  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G18S          // **** No references in table
+0052  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G18X          // References: \_SB_.P18X._STA [-No HID-] \_SB_.P18X._ON_ [-No HID-] \_SB_.P18X._OFF [-No HID-]
+0053  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G18U          // **** No references in table
+0054  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G12X          // **** No references in table
+0055  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G12S          // **** No references in table
+0056  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G10A          // **** No references in table
+0057  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G10S          // **** No references in table
+0058  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G10X          // **** No references in table
+0059  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.G105          // **** No references in table
+005E  GpioIo   OutputOnly                -Field-   \_SB_.I2C5.PMIC.FCOT          // **** No references in table
+
+
+I2C  Controller:  80860F41  \_SB.I2C1                     // Intel Baytrail I2C Host Controller
+
+Type  Address   Speed      Dest _HID  Destination
+I2C    0023    00061A80    80860F41   \_SB_.I2C1                    // Intel Baytrail I2C Host Controller
+I2C    0023    00061A80    INBC0000   \_SB_.I2C1.GPOE               // GPIO Expander
+I2C    0035    00061A80    80860F41   \_SB_.I2C1                    // Intel Baytrail I2C Host Controller
+I2C    0035    000186A0     SMB0349   \_SB_.I2C1.SMCG               // Charger
+I2C    0036    00061A80    80860F41   \_SB_.I2C1                    // Intel Baytrail I2C Host Controller
+I2C    0036    000186A0    MAX17047   \_SB_.I2C1.SMFG               // Fuel Gauge Controller
+I2C    0068    000186A0     INT33FE   \_SB_.I2C5.TIDR               // XPOWER Battery Device
+I2C    0068    000186A0     INT33FE   \_SB_.I2C5.BMDR               // XPOWER Battery Device
+I2C    0068    00061A80    80860F41   \_SB_.I2C1                    // Intel Baytrail I2C Host Controller
+I2C    0068    00061A80    SMSC3750   \_SB_.I2C1.SMUX               // SMSC 3750 USB MUX
+I2C    006B    000186A0     INT33FE   \_SB_.I2C5.TIDR               // XPOWER Battery Device
+I2C    006B    00061A80    80860F41   \_SB_.I2C1                    // Intel Baytrail I2C Host Controller
+I2C    006B    00061A80    TBQ24296   \_SB_.I2C1.TBCG               // Charger
+I2C    006E    000186A0    IMPJ0003   \_SB_.I2C1.IMP3             
+
+
+I2C  Controller:  80860F41  \_SB.I2C2                     // Intel Baytrail I2C Host Controller
+
+Type  Address   Speed      Dest _HID  Destination
+I2C    0018    00061A80    10TI3100   \_SB_.I2C2.TTLV             
+I2C    001C    00061A80    10EC5640   \_SB_.I2C2.RTEK               // Realtek I2S Audio Codec
+I2C    0024    00061A80    HIMX2056   \_SB_.I2C2.CAM2             
+I2C    0036    00061A80    OVTI2680   \_SB_.I2C2.CAM4             
+
+
+I2C  Controller:  80860F41  \_SB.I2C3                     // Intel Baytrail I2C Host Controller
+
+Type  Address   Speed      Dest _HID  Destination
+I2C    000C    00061A80    AKM09911   \_SB_.I2C3.SPBM             
+I2C    000F    00061A80     SMO8500   \_SB_.I2C3.ACC0             
+I2C    000F    00061A80     SMO8500   \_SB_.I2C3.ACC2             
+I2C    0024    00061A80    HIMX2056   \_SB_.I2C3.CAM1             
+I2C    0028    00061A80    SPBP0001   \_SB_.I2C3.SAR1             
+I2C    0036    00061A80    OVTI2680   \_SB_.I2C3.CAM3             
+I2C    0044    00061A80     JSA1212   \_SB_.I2C3.SALS             
+I2C    0068    00061A80    BSBG0160   \_SB_.I2C3.SPBG             
+
+
+I2C  Controller:  80860F41  \_SB.I2C4                     // Intel Baytrail I2C Host Controller
+
+Type  Address   Speed      Dest _HID  Destination
+I2C    002C    000186A0    -No HID-   \_SB_.PCI0.GFX0             
+I2C    0038    00061A80    FTSC1000   \_SB_.I2C4.TCS1             
+
+
+I2C  Controller:  80860F41  \_SB.I2C5                     // Intel Baytrail I2C Host Controller
+
+Type  Address   Speed      Dest _HID  Destination
+I2C    0034    000F4240     INT33F4   \_SB_.I2C5.PMI1               // XPOWER PMIC Controller
+I2C    0034    00061A80    80860F41   \_SB_.I2C5                    // Intel Baytrail I2C Host Controller
+I2C    005E    000F4240     DMY0001   \_SB_.I2C5.PMIF             
+I2C    005E    000F4240     INT33F5   \_SB_.I2C5.PMI2               // TI PMIC Controller
+I2C    006E    000F4240     INT33FD   \_SB_.I2C5.PMIC               // Intel Baytrail Power Management IC
+
+
+SPI  Controller:  80860F0E  \_SB.SPI1                     // Intel SPI Controller
+
+Type  Address   Speed      Dest _HID  Destination
+SPI    0001    007A1200    AUTH2750   \_SB_.SPI1.FPNT               // AuthenTec AES2750
+
+
+UART Controller:  80860F0A  \_SB.URT1                     // Intel Atom UART Controller
+
+Type  Address   Speed      Dest _HID  Destination
+UART   0000    0001C200    OBDA8723   \_SB_.URT1.BTH1             
+UART   0000    0001C200    OBDA8723   \_SB_.URT1.BTH1             
+UART   0000    0001C200     BCM2E3A   \_SB_.URT1.BTH0             
+
+
+UART Controller:  80860F0A  \_SB.URT2                     // Intel Atom UART Controller
+
+Type  Address   Speed      Dest _HID  Destination
+UART   0000    0001C200     BCM4752   \_SB_.URT2.GPS0             
+
+
+ACPI Device Tree
+----------------
+
+Device Pathname                   _HID      Description
+
+\_SB_                           -No HID-
+\_SB_.PCI0                       PNP0A08    // PCI Express Bus
+\_SB_.PCI0.LPCB                 -No HID-
+\_SB_.PCI0.LPCB.FWHD             INT0800    // Intel 82802 Firmware Hub Device
+\_SB_.PCI0.LPCB.IPIC             PNP0000    // 8259-compatible Programmable Interrupt Controller
+\_SB_.PCI0.LPCB.LDRC             PNP0C02    // PNP Motherboard Resources
+\_SB_.PCI0.LPCB.TIMR             PNP0100    // PC-class System Timer
+\_SB_.PCI0.LPCB.IUR3             PNP0501    // 16550A-compatible COM Serial Port
+\_SB_.PCI0.LPCB.PS2K             PNP0303    // IBM Enhanced Keyboard (101/102-key, PS/2 Mouse)
+\_SB_.PCI0.LPCB.PS2M             PNP0F13    // PS/2 Mouse
+\_SB_.PCI0.VLVC                 -No HID-
+\_SB_.PCI0.XHC1                 -No HID-
+\_SB_.PCI0.XHC1.RHUB            -No HID-
+\_SB_.PCI0.XHC1.RHUB.SSP1       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HS01       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HS02       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HS03       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HS03.MODM  -No HID-
+\_SB_.PCI0.XHC1.RHUB.HS04       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HSC1       -No HID-
+\_SB_.PCI0.XHC1.RHUB.HSC2       -No HID-
+\_SB_.PCI0.OTG1                 -No HID-
+\_SB_.PCI0.EHC1                 -No HID-
+\_SB_.PCI0.EHC1.HUBN            -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01       -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR11  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR12  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR13  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR14  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR15  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR16  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR17  -No HID-
+\_SB_.PCI0.EHC1.HUBN.PR01.PR18  -No HID-
+\_SB_.PCI0.SEC0                 -No HID-
+\_SB_.PCI0.GFX0                 -No HID-
+\_SB_.PCI0.GFX0.DD01            -No HID-
+\_SB_.PCI0.GFX0.DD02            -No HID-
+\_SB_.PCI0.GFX0.DD03            -No HID-
+\_SB_.PCI0.GFX0.DD04            -No HID-
+\_SB_.PCI0.GFX0.DD05            -No HID-
+\_SB_.PCI0.GFX0.DD06            -No HID-
+\_SB_.PCI0.GFX0.DD07            -No HID-
+\_SB_.PCI0.GFX0.DD08            -No HID-
+\_SB_.PCI0.GFX0.DD1F            -No HID-
+\_SB_.PCI0.GFX0.ISP0            -No HID-
+\_SB_.PCI0.PDRC                  PNP0C02    // PNP Motherboard Resources
+\_SB_.RTC_                       PNP0B00    // AT Real-Time Clock
+\_SB_.HPET                       PNP0103    // HPET System Timer
+\_SB_.LNKA                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKB                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKC                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKD                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKE                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKF                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKG                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LNKH                       PNP0C0F    // PCI Interrupt Link Device
+\_SB_.LPEA                      80860F28    // Intel SST Audio DSP
+\_SB_.LPEA.ADMA                 ADMA0F28    // Intel Audio DMA
+\_SB_.LPEA.SSP1                 SSPX0000    // Intel SSP Device
+\_SB_.TIMC                      TIMC0F28
+\_SB_.AMCR                      AMCR0F28    // Intel Audio Machine Driver
+\_SB_.HAD_                       HAD0F28    // Intel HDMI Audio Driver
+\_SB_.CIND                       INT33D3    // Intel GPIO Buttons
+\_SB_.GPED                       INT0002    // Virtual GPIO Controller
+\_SB_.GPO0                       INT33FC    // Intel Baytrail GPIO Controller
+\_SB_.GPO1                       INT33FC    // Intel Baytrail GPIO Controller
+\_SB_.GPO2                       INT33FC    // Intel Baytrail GPIO Controller
+\_SB_.PEPD                       INT3396    // Standard Power Management Controller
+\_SB_.SDHA                      80860F14    // Intel Baytrail SDIO/MMC Host Controller
+\_SB_.SDHA.EMMD                 -No HID-
+\_SB_.SDHB                       INT33BB    // Intel Baytrail SD Host Controller
+\_SB_.SDHB.WLAN                 -No HID-
+\_SB_.SDHB.WLA2                 -No HID-
+\_SB_.SDHB.RTLW                  RTL8723    // Realtek Wireless Controller
+\_SB_.SDHC                      80860F14    // Intel Baytrail SDIO/MMC Host Controller
+\_SB_.SDHD                      80860F14    // Intel Baytrail SDIO/MMC Host Controller
+\_SB_.GDM1                      INTL9C60    // Intel Baytrail SOC DMA Controller
+\_SB_.GDM2                      INTL9C60    // Intel Baytrail SOC DMA Controller
+\_SB_.PWM1                      80860F09    // Intel PWM Controller
+\_SB_.PWM2                      80860F09    // Intel PWM Controller
+\_SB_.URT1                      80860F0A    // Intel Atom UART Controller
+\_SB_.URT1.BTH0                  BCM2E3A
+\_SB_.URT1.BTH1                 OBDA8723
+\_SB_.URT2                      80860F0A    // Intel Atom UART Controller
+\_SB_.URT2.GPS0                  BCM4752
+\_SB_.SPI1                      80860F0E    // Intel SPI Controller
+\_SB_.SPI1.FPNT                 AUTH2750    // AuthenTec AES2750
+\_SB_.NFC2                       NXP5442    // NXP 5442 Near Field Communications Controller
+\_SB_.I2C1                      80860F41    // Intel Baytrail I2C Host Controller
+\_SB_.I2C1.IMP3                 IMPJ0003
+\_SB_.I2C1.SMUX                 SMSC3750    // SMSC 3750 USB MUX
+\_SB_.I2C1.GPOE                 INBC0000    // GPIO Expander
+\_SB_.I2C1.SMFG                 MAX17047    // Fuel Gauge Controller
+\_SB_.I2C1.SMCG                  SMB0349    // Charger
+\_SB_.I2C1.TBCG                 TBQ24296    // Charger
+\_SB_.I2C1.BATC                  PNP0C0A    // Control Method Battery
+\_SB_.I2C2                      80860F41    // Intel Baytrail I2C Host Controller
+\_SB_.I2C2.RTEK                 10EC5640    // Realtek I2S Audio Codec
+\_SB_.I2C2.TTLV                 10TI3100
+\_SB_.I2C2.CAM2                 HIMX2056
+\_SB_.I2C2.CAM4                 OVTI2680
+\_SB_.I2C3                      80860F41    // Intel Baytrail I2C Host Controller
+\_SB_.I2C3.CAM1                 HIMX2056
+\_SB_.I2C3.CAM3                 OVTI2680
+\_SB_.I2C3.ACC2                  SMO8500
+\_SB_.I2C3.SALS                  JSA1212
+\_SB_.I2C3.SPBM                 AKM09911
+\_SB_.I2C3.SPBG                 BSBG0160
+\_SB_.I2C3.SAR1                 SPBP0001
+\_SB_.I2C3.ACC0                  SMO8500
+\_SB_.I2C4                      80860F41    // Intel Baytrail I2C Host Controller
+\_SB_.I2C4.TCS1                 FTSC1000
+\_SB_.I2C5                      80860F41    // Intel Baytrail I2C Host Controller
+\_SB_.I2C5.PMI1                  INT33F4    // XPOWER PMIC Controller
+\_SB_.I2C5.PMI2                  INT33F5    // TI PMIC Controller
+\_SB_.I2C5.PMIF                  DMY0001
+\_SB_.I2C5.PMIC                  INT33FD    // Intel Baytrail Power Management IC
+\_SB_.I2C5.BMDR                  INT33FE    // XPOWER Battery Device
+\_SB_.I2C5.TIDR                  INT33FE    // XPOWER Battery Device
+\_SB_.I2C5.BMBT                  PNP0C0A    // Control Method Battery
+\_SB_.I2C5.TIBT                  PNP0C0A    // Control Method Battery
+\_SB_.TBAD                       INTCFD9    // Intel Baytrail SOC GPIO Controller
+\_SB_.MBID                       INT33BD    // Intel Baytrail Mailbox Device
+\_SB_.PAGD                      ACPI000C    // Processor Aggregator Device
+\_SB_.LID0                       PNP0C0D    // Lid Device
+\_SB_.ADP1                      ACPI0003    // Power Source Device
+\_TZ_                           -No HID-

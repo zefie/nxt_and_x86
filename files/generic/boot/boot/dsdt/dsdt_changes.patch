@@ -1,0 +1,99 @@
+--- orig/dsdt.dsl	2016-05-07 01:35:41.000000000 -0400
++++ mod/dsdt.dsl	2016-05-07 01:10:46.000000000 -0400
+@@ -5,7 +5,7 @@
+  * 
+  * Disassembling to symbolic ASL+ operators
+  *
+- * Disassembly of dsdt.dat, Sat May  7 01:35:41 2016
++ * Disassembly of dsdt.dat, Sun May  1 16:38:14 2016
+  *
+  * Original Table Header:
+  *     Signature        "DSDT"
+@@ -433,9 +433,10 @@
+                 IO (Decode16,
+                     0x0070,             // Range Minimum
+                     0x0070,             // Range Maximum
+-                    0x01,               // Alignment
+-                    0x08,               // Length
++                    0x00,               // Alignment
++                    0x02,               // Length
+                     )
++				IRQNoFlags(){10}
+             })
+         }
+ 
+@@ -2481,10 +2482,6 @@
+                     _Y06)
+                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
+                 {
+-                    0x0000001D,
+-                }
+-                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
+-                {
+                     0x00000018,
+                 }
+                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
+@@ -2503,6 +2500,10 @@
+                 {
+                     0x0000001C,
+                 }
++                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
++                {
++                    0x0000001D,
++                }
+             })
+             Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
+             {
+@@ -13680,7 +13681,7 @@
+                 }
+             }
+         }
+-
++	
+         Device (TBAD)
+         {
+             Name (_HID, "INTCFD9" /* Intel Baytrail SOC GPIO Controller */)  // _HID: Hardware ID
+@@ -13731,10 +13732,10 @@
+                 Name (ABUF, ResourceTemplate ()
+                 {
+                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
+-                        "\\_SB.I2C5.PMI1", 0x00, ResourceConsumer, ,
++                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+                         )
+                         {   // Pin list
+-                            0x0016
++                            0x0010
+                         }
+                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
+                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+@@ -13764,10 +13765,10 @@
+                 Name (BBUF, ResourceTemplate ()
+                 {
+                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
+-                        "\\_SB.I2C5.PMI2", 0x00, ResourceConsumer, ,
++                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+                         )
+                         {   // Pin list
+-                            0x0016
++                            0x0010
+                         }
+                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
+                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+@@ -13822,7 +13823,7 @@
+                         _T_0 = ToInteger (Arg2)
+                         If ((_T_0 == Zero))
+                         {
+-                            Return (Buffer (One)
++							Return (Buffer (One)
+                             {
+                                  0x03                                             /* . */
+                             })
+@@ -13830,7 +13831,7 @@
+                         Else
+                         {
+                             If ((_T_0 == One))
+-                            {
++                            {	
+                                 Return (0x07)
+                             }
+                         }

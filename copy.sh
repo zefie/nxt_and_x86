@@ -6,12 +6,15 @@ fi
 
 USBDISK=NXT_AND_X86
 SIZE_M=1536
+BOOTARGS="intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=pci,force sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
 
 if [ "$1" == "cm" ]; then
+	ANDTYPE=CyanogenMod
 	FLAVOR=android-x86-cm
 	PRODUCT=android_x86
 fi
 if [ "$1" == "aosp" ]; then
+	ANDTYPE=AOSP
 	FLAVOR=android-x86
 	PRODUCT=x86
 fi
@@ -63,7 +66,6 @@ if [ "$MOUNTD" == "/dev/" ]; then
 	exit 1;
 fi
 
-OURMACH=$(cat $MOUNTD/boot/grub/grub.cfg | grep androidboot.hardware | head -n1 | sed -n 's/.*\(androidboot.hardware\=\(.*\)\)/\1/p' | cut -d' ' -f1 | cut -d'=' -f2)
 THISDIR=$(pwd)
 
 trap ctrl_c INT
@@ -94,6 +96,21 @@ function detect_android_version() {
 	else
 		return $ZANDVERS
 	fi
+}
+
+function patch_grub() {
+	if [ "$USE_SQUASH" -eq "1" ]; then
+		if [ "$(grep system.img $MOUNTD/boot/grub/grub.cfg | wc -l)" -gt "0" ]; then
+			sed -i 's|system.img|system.sfs|g' $MOUNTD/boot/grub/grub.cfg
+		fi
+	else
+		if [ "$(grep system.sfs $MOUNTD/boot/grub/grub.cfg | wc -l)" -gt "0" ]; then
+			sed -i 's|system.sfs|system.img|g' $MOUNTD/boot/grub/grub.cfg
+		fi
+	fi
+	sed -i "s|#HW#|$1|g" $MOUNTD/boot/grub/grub.cfg
+	sed -i "s|#BOOTARGS#|$BOOTARGS|g" $MOUNTD/boot/grub/grub.cfg
+	sed -i "s|#TITLE#|$ANDTYPE $(date --date=\@${2} +%Y-%m-%d)|g" $MOUNTD/boot/grub/grub.cfg
 }
 
 function check_mounted() {
@@ -246,10 +263,6 @@ if [ "$USE_SQUASH" -eq "1" ]; then
 		echo "  REMOVE  $MOUNTD/system.img";
 		rm $MOUNTD/system.img
 	fi
-	if [ "$(grep system.img $MOUNTD/boot/grub/grub.cfg | wc -l)" -gt "0" ]; then
-		echo "  PATCH   $MOUNTD/boot/grub/grub.cfg"
-		sed -i 's|system.img|system.sfs|g' $MOUNTD/boot/grub/grub.cfg
-	fi
 	echo "  SQUASH  workdir/system.img > workdir/system.sfs"
 	cd workdir
 	mksquashfs system.img system.sfs 2>&1 > /dev/null
@@ -262,19 +275,27 @@ else
 		echo "  REMOVE  $MOUNTD/system.sfs";
 		rm $MOUNTD/system.sfs
 	fi
-	if [ "$(grep system.sfs $MOUNTD/boot/grub/grub.cfg | wc -l)" -gt "0" ]; then
-		echo "  PATCH   $MOUNTD/boot/grub/grub.cfg"
-		sed -i 's|system.sfs|system.img|g' $MOUNTD/boot/grub/grub.cfg
-	fi
 	echo "  COPY    workdir/system.img > $MOUNTD/system.img"
 	cp workdir/system.img $MOUNTD/system.img
 fi
 
 echo "  COPY    install.img > $MOUNTD/install.img"
-cp "files/generic/install.img" "$MOUNTD/install.img"
+if [ -f "$AND_BUILD/install.img" ]; then
+	cp "$AND_BUILD/install.img" "$MOUNTD/install.img"
+else
+	cp "files/generic/install.img" "$MOUNTD/install.img"
+fi
 
 echo "  COPY    initrd.img > $MOUNTD/initrd.img"
-cp "$AND_BUILD/initrd.img" "$MOUNTD/initrd.img"
+if [ -f "$AND_BUILD/initrd.img" ]; then
+	cp "$AND_BUILD/initrd.img" "$MOUNTD/initrd.img"
+else
+	cp "files/generic/initrd.img" "$MOUNTD/initrd.img"
+fi
+
+echo "  COPY    boot files"
+cp -r "files/generic/boot/boot" $MOUNTD
+cp -r "files/generic/boot/efi" $MOUNTD
 
 clean_workdir
 mkdir workdir
@@ -288,13 +309,8 @@ gzip -dc ramdisk.img.gz | cpio -id 2>/dev/null > /dev/null
 cd ..
 
 PBMACH=$(find workdir |sed 's#.*/##' | grep fstab | cut -d'.' -f2-);
-if [ "$PBMACH" != "$OURMACH" ]; then
-        echo "  WARN    Found machine difference (image has \"$PBMACH\", we use \"$OURMACH\") ... Try using \"$PBMACH\" in grub"
-#        for f in $(find workdir | grep $PBMACH); do
-#                NEWFILE=$(echo $f | sed "s/$PBMACH/$OURMACH/");
-#                mv $f $NEWFILE
-#        done
-fi
+PBDATE=$(cat workdir/default.prop | grep ro.bootimage.build.date.utc | cut -d'=' -f2)
+patch_grub $PBMACH $PBDATE
 
 echo "  COPY    ramdisk files"
 copy_files $ANDVERS root workdir
