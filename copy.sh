@@ -59,7 +59,7 @@ fi
 MOUNTP=$HOME/zefie_processing
 USBD=$(ls -l /dev/disk/by-label | grep $USBDISK | rev | cut -d'/' -f1 | rev) 
 MOUNTD=$(cat /proc/mounts | grep /dev/$USBD | cut -d' ' -f2)
-if [ -z "$MOUNTD" ]; then
+if [ -z "$MOUNTD" ] || [ -z "$USBD" ]; then
         echo "  ERROR   Cannot find $USBDISK"
 	echo "          This is not a download-and-run script. It was designed to"
         echo "          make my life easier, and may need adjustment for usage"
