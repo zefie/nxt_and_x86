@@ -18,4 +18,4 @@ if [ "$MOUNTD" == "/dev/" ]; then
 fi
 
 echo "  MKFS    $MOUNTD/data.img"
-mkfs.ext4 -L data -m 0 $MOUNTD/data.img 2>&1 > /dev/null
+mkfs.ext4 -L data -m 0 $MOUNTD/data.img 2>/dev/null > /dev/null

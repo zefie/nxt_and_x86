@@ -45,7 +45,7 @@ do
 
 	# Estimated voltage
 	hex=$(i2cget -f -y $ADDR 0x34 0x78 b | cut -c 3- | tr a-z A-Z)
-	estvoltage=$(expr $(expr $(hex2dec $hex | cut -d' ' -f2) \* 2 - 64) \* 100000)
+	estvoltage=$(expr $(expr $(hex2dec $hex | cut -d' ' -f2) \* 2 - 64) \* 10000)
 	if [ $estvoltage -ge 0 ]
 	then
 		setparm $estvoltage /sys/module/test_power/parameters/battery_voltage

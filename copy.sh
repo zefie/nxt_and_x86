@@ -6,7 +6,8 @@ fi
 
 USBDISK=NXT_AND_X86
 SIZE_M=1536
-BOOTARGS="intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=pci,force sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
+#BOOTARGS="intel_pstates=disable intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
+BOOTARGS="tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
 
 if [ "$1" == "cm" ]; then
 	ANDTYPE=CyanogenMod
@@ -56,13 +57,13 @@ if [ "$2" == "squash" ] || [ "$3" == "squash" ] || [ "$4" == "squash" ]; then
 fi
 
 MOUNTP=$HOME/zefie_processing
-MOUNTD=$(df /dev/$(ls -l  /dev/disk/by-label | grep $USBDISK | rev | cut -d'/' -f1 | rev) | rev | cut -d'%' -f1 | cut -d' ' -f1 | grep / | rev)
-
-if [ "$MOUNTD" == "/dev/" ]; then
+USBD=$(ls -l /dev/disk/by-label | grep $USBDISK | rev | cut -d'/' -f1 | rev) 
+MOUNTD=$(cat /proc/mounts | grep /dev/$USBD | cut -d' ' -f2)
+if [ -z "$MOUNTD" ]; then
         echo "  ERROR   Cannot find $USBDISK"
-	echo "This is not a download-and-run script. It was designed to"
-        echo "make my life easier, and may need adjustment for usage"
-        echo "on other systems."
+	echo "          This is not a download-and-run script. It was designed to"
+        echo "          make my life easier, and may need adjustment for usage"
+        echo "          on other systems."
 	exit 1;
 fi
 
