@@ -6,8 +6,8 @@ fi
 
 USBDISK=NXT_AND_X86
 SIZE_M=1536
-#BOOTARGS="intel_pstates=disable intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
-BOOTARGS="tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
+BOOTARGS="intel_pstates=disable intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
+#BOOTARGS="tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci sdhci.debug_quirks=0x8000 acpi_backlight=vendor noefi"
 
 if [ "$1" == "cm" ]; then
 	ANDTYPE=CyanogenMod
@@ -140,8 +140,11 @@ function patch_buildprop() {
 	echo 'ro.board.platform=baytrail' >> $MOUNTP/build.prop
 	echo 'ro.radio.noril=yes' >> $MOUNTP/build.prop
 	echo 'hal.sensors.iio.accel.matrix=0,1,0,1,0,0,0,0,-1' >> $MOUNTP/build.prop
-	echo 'ro.sf.lcd_density=180' >> $MOUNTP/build.prop
+	if [ "$1" == "aosp" ]; then
+		echo 'ro.sf.lcd_density=160' >> $MOUNTP/build.prop
+	fi
 	if [ "$1" == "cm" ]; then
+		echo 'ro.sf.lcd_density=180' >> $MOUNTP/build.prop
 		echo 'persist.sys.lcd_density=180' >> $MOUNTP/build.prop
 	fi
 }
