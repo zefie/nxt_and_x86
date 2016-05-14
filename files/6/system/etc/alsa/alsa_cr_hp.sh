@@ -10,7 +10,7 @@ alsa_amixer -c0 sset 'HP Channel' on
 alsa_amixer -c0 sset 'Headphone' on
 alsa_amixer -c0 sset 'HP L' on
 alsa_amixer -c0 sset 'HP R' on
-alsa_amixer -c0 sset 'HP' 29
+alsa_amixer -c0 sset 'HP' 31
 
 # Disable Speakers
 alsa_amixer -c0 sset 'Speaker' off

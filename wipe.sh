@@ -6,16 +6,19 @@ fi
 
 USBDISK=NXT_AND_X86
 
-MOUNTP=$HOME/zefie_processing
-MOUNTD=$(df /dev/$(ls -l  /dev/disk/by-label | grep $USBDISK | rev | cut -d'/' -f1 | rev) | rev | cut -d'%' -f1 | cut -d' ' -f1 | grep / | rev)
-
-if [ "$MOUNTD" == "/dev/" ]; then
+USBD=$(ls -l /dev/disk/by-label | grep $USBDISK | rev | cut -d'/' -f1 | rev) 
+MOUNTD=$(cat /proc/mounts | grep /dev/$USBD | cut -d' ' -f2)
+if [ -z "$MOUNTD" ] || [ -z "$USBD" ]; then
         echo "  ERROR   Cannot find $USBDISK"
-	echo "This is not a download-and-run script. It was designed to"
-        echo "make my life easier, and may need adjustment for usage"
-        echo "on other systems."
-	exit 1;
+        echo "          This is not a download-and-run script. It was designed to"
+        echo "          make my life easier, and may need adjustment for usage"
+        echo "          on other systems."
+        exit 1;
 fi
 
+if [ ! -f "$MOUNTD/data.img" ]; then
+	echo "  CREATE  $MOUNTD/data.img"
+	dd if=/dev/zero of=$MOUNTD/data.img bs=1M count=4095
+fi
 echo "  MKFS    $MOUNTD/data.img"
-mkfs.ext4 -L data -m 0 $MOUNTD/data.img 4G
+mkfs.ext4 -L data -m 0 $MOUNTD/data.img
