@@ -13681,7 +13681,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 }
             }
         }
-	
+
         Device (TBAD)
         {
             Name (_HID, "INTCFD9" /* Intel Baytrail SOC GPIO Controller */)  // _HID: Hardware ID
@@ -13732,10 +13732,10 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 Name (ABUF, ResourceTemplate ()
                 {
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+                        "\\_SB.I2C5.PMI1", 0x00, ResourceConsumer, ,
                         )
                         {   // Pin list
-                            0x0010
+                            0x0016
                         }
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
@@ -13765,10 +13765,10 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 Name (BBUF, ResourceTemplate ()
                 {
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
+                        "\\_SB.I2C5.PMI2", 0x00, ResourceConsumer, ,
                         )
                         {   // Pin list
-                            0x0010
+                            0x0016
                         }
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
@@ -13823,7 +13823,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                         _T_0 = ToInteger (Arg2)
                         If ((_T_0 == Zero))
                         {
-							Return (Buffer (One)
+                            Return (Buffer (One)
                             {
                                  0x03                                             /* . */
                             })
@@ -13831,7 +13831,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                         Else
                         {
                             If ((_T_0 == One))
-                            {	
+                            {
                                 Return (0x07)
                             }
                         }

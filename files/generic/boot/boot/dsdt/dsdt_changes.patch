@@ -21,57 +21,5 @@
 +				IRQNoFlags(){10}
              })
          }
- 
-@@ -13680,7 +13681,7 @@
-                 }
-             }
-         }
--
-+	
-         Device (TBAD)
-         {
-             Name (_HID, "INTCFD9" /* Intel Baytrail SOC GPIO Controller */)  // _HID: Hardware ID
-@@ -13731,10 +13732,10 @@
-                 Name (ABUF, ResourceTemplate ()
-                 {
-                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
--                        "\\_SB.I2C5.PMI1", 0x00, ResourceConsumer, ,
-+                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
-                         )
-                         {   // Pin list
--                            0x0016
-+                            0x0010
-                         }
-                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
-@@ -13764,10 +13765,10 @@
-                 Name (BBUF, ResourceTemplate ()
-                 {
-                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
--                        "\\_SB.I2C5.PMI2", 0x00, ResourceConsumer, ,
-+                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
-                         )
-                         {   // Pin list
--                            0x0016
-+                            0x0010
-                         }
-                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
-@@ -13822,7 +13823,7 @@
-                         _T_0 = ToInteger (Arg2)
-                         If ((_T_0 == Zero))
-                         {
--                            Return (Buffer (One)
-+							Return (Buffer (One)
-                             {
-                                  0x03                                             /* . */
-                             })
-@@ -13830,7 +13831,7 @@
-                         Else
-                         {
-                             If ((_T_0 == One))
--                            {
-+                            {	
-                                 Return (0x07)
-                             }
-                         }
+
+
