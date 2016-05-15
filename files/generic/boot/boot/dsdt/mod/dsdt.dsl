@@ -2482,6 +2482,10 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                     _Y06)
                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
                 {
+                    0x0000001D,
+                }
+                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
+                {
                     0x00000018,
                 }
                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
@@ -2499,10 +2503,6 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
                 {
                     0x0000001C,
-                }
-                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
-                {
-                    0x0000001D,
                 }
             })
             Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings

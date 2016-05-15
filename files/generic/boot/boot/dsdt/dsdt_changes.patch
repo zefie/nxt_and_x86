@@ -22,28 +22,6 @@
              })
          }
  
-@@ -2481,10 +2482,6 @@
-                     _Y06)
-                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
-                 {
--                    0x0000001D,
--                }
--                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
--                {
-                     0x00000018,
-                 }
-                 Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
-@@ -2503,6 +2500,10 @@
-                 {
-                     0x0000001C,
-                 }
-+                Interrupt (ResourceConsumer, Level, ActiveLow, Exclusive, ,, )
-+                {
-+                    0x0000001D,
-+                }
-             })
-             Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
-             {
 @@ -13680,7 +13681,7 @@
                  }
              }
