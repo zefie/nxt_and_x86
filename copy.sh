@@ -8,7 +8,7 @@ USBDISK=NXT_AND_X86
 SIZE_M=1536
 #BOOTARGS="reboot=acpi noefi"
 #BOOTARGS="intel_idle.max_cstate=1 reboot=apci acpi_backlight=vendor noefi"
-BOOTARGS="tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci acpi_backlight=vendor noefi"
+BOOTARGS="intel_idle.max_cstate=1 tsc=reliable force_tsc_stable=1 clocksource_failover=tsc reboot=apci acpi_backlight=vendor noefi"
 
 if [ "$1" == "cm" ]; then
 	ANDTYPE=CyanogenMod

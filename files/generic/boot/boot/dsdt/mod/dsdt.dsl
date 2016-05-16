@@ -9600,31 +9600,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                     Return (Zero)
                 }
 
-                If ((OSSL & 0x80))
-                {
-                    Return (0x0F)
-                }
-
-                Return (Zero)
-            }
-
-            Method (_PS3, 0, NotSerialized)  // _PS3: Power State 3
-            {
-                PSAT |= 0x03
-                Local0 = PSAT /* \_SB_.PWM1.PSAT */
-            }
-
-            Method (_PS0, 0, NotSerialized)  // _PS0: Power State 0
-            {
-                PSAT &= 0xFFFFFFFC
-                Local0 = PSAT /* \_SB_.PWM1.PSAT */
-            }
-
-            OperationRegion (KEYS, SystemMemory, P11A, 0x0100)
-            Field (KEYS, DWordAcc, NoLock, WriteAsZeros)
-            {
-                Offset (0x84), 
-                PSAT,   32
+                Return (0x0F)
             }
         }
 
@@ -9657,32 +9633,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 {
                     Return (Zero)
                 }
-
-                If ((OSSL & 0x80))
-                {
-                    Return (0x0F)
-                }
-
-                Return (Zero)
-            }
-
-            Method (_PS3, 0, NotSerialized)  // _PS3: Power State 3
-            {
-                PSAT |= 0x03
-                Local0 = PSAT /* \_SB_.PWM2.PSAT */
-            }
-
-            Method (_PS0, 0, NotSerialized)  // _PS0: Power State 0
-            {
-                PSAT &= 0xFFFFFFFC
-                Local0 = PSAT /* \_SB_.PWM2.PSAT */
-            }
-
-            OperationRegion (KEYS, SystemMemory, P21A, 0x0100)
-            Field (KEYS, DWordAcc, NoLock, WriteAsZeros)
-            {
-                Offset (0x84), 
-                PSAT,   32
+                Return (0x0F)
             }
         }
 
@@ -13732,10 +13683,10 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 Name (ABUF, ResourceTemplate ()
                 {
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                        "\\_SB.I2C5.PMI1", 0x00, ResourceConsumer, ,
+                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
                         )
                         {   // Pin list
-                            0x0016
+                            0x0010
                         }
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
@@ -13765,10 +13716,10 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "INSYDE", "INSYDE", 0x00000003)
                 Name (BBUF, ResourceTemplate ()
                 {
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
-                        "\\_SB.I2C5.PMI2", 0x00, ResourceConsumer, ,
+                        "\\_SB.GPO2", 0x00, ResourceConsumer, ,
                         )
                         {   // Pin list
-                            0x0016
+                            0x0010
                         }
                     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullDefault, 0x0000,
                         "\\_SB.GPO2", 0x00, ResourceConsumer, ,
