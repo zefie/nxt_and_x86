@@ -317,7 +317,8 @@ PBDATE=$(cat workdir/default.prop | grep ro.bootimage.build.date.utc | cut -d'='
 patch_grub $PBMACH $PBDATE
 
 echo "  COPY    ramdisk files"
-copy_files $ANDVERS root workdir
+cp files/$ANDVERS/root/fstab.android_x86 workdir/fstab.$PBMACH
+
 
 echo "  BUILD   ramdisk > $MOUNTD/ramdisk.img"
 cd workdir
