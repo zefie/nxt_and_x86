@@ -290,13 +290,6 @@ else
 	cp "files/generic/install.img" "$MOUNTD/install.img"
 fi
 
-echo "  COPY    initrd.img > $MOUNTD/initrd.img"
-if [ -f "$AND_BUILD/initrd.img" ]; then
-	cp "$AND_BUILD/initrd.img" "$MOUNTD/initrd.img"
-else
-	cp "files/generic/initrd.img" "$MOUNTD/initrd.img"
-fi
-
 echo "  COPY    boot files"
 cp -r "files/generic/boot/boot" $MOUNTD
 cp -r "files/generic/boot/efi" $MOUNTD
@@ -316,6 +309,7 @@ PBMACH=$(find workdir |sed 's#.*/##' | grep fstab | cut -d'.' -f2-);
 PBDATE=$(cat workdir/default.prop | grep ro.bootimage.build.date.utc | cut -d'=' -f2)
 patch_grub $PBMACH $PBDATE
 
+
 echo "  COPY    ramdisk files"
 cp files/$ANDVERS/root/fstab.android_x86 workdir/fstab.$PBMACH
 
@@ -323,6 +317,29 @@ cp files/$ANDVERS/root/fstab.android_x86 workdir/fstab.$PBMACH
 echo "  BUILD   ramdisk > $MOUNTD/ramdisk.img"
 cd workdir
 find . -name ramdisk.img.gz -prune -o -print | cpio --create --format='newc' 2>/dev/null | gzip -c > $MOUNTD/ramdisk.img
+cd ..
+
+clean_workdir
+mkdir workdir
+
+echo "  COPY    initrd.img > workdir/initrd.img.gz"
+if [ -f "$AND_BUILD/initrd.img" ]; then
+	cp "$AND_BUILD/initrd.img" "workdir/initrd.img.gz"
+else
+	cp "files/generic/initrd.img" "workdir/initrd.img.gz"
+fi
+
+echo "  EXT     initrd > workdir"
+cd workdir
+gzip -dc initrd.img.gz | cpio -id 2>/dev/null > /dev/null
+cd ..
+
+echo "  PATCH   initrd date"
+echo "VER=$(date --date=\@${PBDATE} +%Y-%m-%d)" > workdir/scripts/00-ver
+
+echo "  BUILD   initrd > $MOUNTD/initrd.img"
+cd workdir
+find . -name initrd.img.gz -prune -o -print | cpio --create --format='newc' 2>/dev/null | gzip -c > $MOUNTD/initrd.img
 cd ..
 
 clean_workdir
